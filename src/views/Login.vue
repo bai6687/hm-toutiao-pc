@@ -3,8 +3,8 @@
     <el-card class="my-card">
       <img src="../assets/logo_index.png" alt />
       <!-- 表单 -->
-      <el-form :model="loginForm" :rules="loginRules">
-        <el-form-item prop="mobile" status-icon>
+      <el-form ref="loginForm" :model="loginForm" :rules="loginRules" status-icon>
+        <el-form-item prop="mobile">
           <el-input v-model="loginForm.mobile" placeholder="请输入手机号"></el-input>
         </el-form-item>
         <el-form-item prop="code">
@@ -19,7 +19,7 @@
           <el-checkbox :value="true">我已同意用户协议</el-checkbox>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" style="width:100%">登录</el-button>
+          <el-button @click="login()" type="primary" style="width:100%">登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -60,6 +60,28 @@ export default {
         ]
       }
     };
+  },
+  methods: {
+    login() {
+      // 登录前，对整体表单进行校验
+      // 组件方法validate(valid)用来整体校验表单
+      // valid代表整体表单是否校验成功
+      // 通过组件实例this.$refs.loginForm调用组件方法
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          // 万能短信验证码：246810 测试账号：13911111111
+          // console.log("登录");
+          this.$http
+            .post("authorizations", this.loginForm)
+            .then(res => {
+              this.$router.push("/");
+            })
+            .catch(() => {
+              this.$message.error("手机号或验证码错误");
+            });
+        }
+      });
+    }
   }
 };
 </script>
