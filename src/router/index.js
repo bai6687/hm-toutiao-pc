@@ -7,6 +7,9 @@ import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Welcome from '../views/Welcome.vue'
 
+// 导入auth模块
+import auth from '@/utils/auth.js'
+
 // 注册路由
 Vue.use(VueRouter)
 
@@ -24,6 +27,16 @@ const routes = [
 
 // 初始化路由实例
 const router = new VueRouter({ routes })
+
+// 导航守卫
+router.beforeEach((to, from, next) => {
+    // 如果访问的路径是除去登录外的路径，并且此时没有登录，拦截到登录页面
+    // 其他情况一概放行
+    const user = auth.getUser()
+    // 如果user.token为空对象，返回undefined，!user.token返回true
+    if (to.path !== '/login' && !user.token) return next('/login')
+    next()
+})
 
 // 导出路由实例
 export default router
