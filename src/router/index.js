@@ -6,6 +6,7 @@ import Vue from 'vue'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Welcome from '../views/Welcome.vue'
+import NotFound from '../views/404.vue'
 
 // 导入auth模块
 import auth from '@/utils/auth.js'
@@ -22,7 +23,9 @@ const routes = [
         children: [
             { path: '/', component: Welcome }
         ]
-    }
+    },
+    // 通配规则，匹配以上规则没处理的路径
+    { path: '*', component: NotFound }
 ]
 
 // 初始化路由实例
