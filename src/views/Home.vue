@@ -54,7 +54,7 @@
           <!-- 文字 -->
           <span class="text">江苏传智播客科技教育有限公司</span>
           <!-- 下拉菜单组件 -->
-          <el-dropdown class="my-dropdown">
+          <el-dropdown @command="handleClick" class="my-dropdown">
             <span class="el-dropdown-link">
               <!-- 头像 -->
               <img class="user-avatar" :src="userPhoto" />
@@ -64,8 +64,8 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <!-- 组件上绑定事件无效果，@click.native代表把事件绑定到解析后的原生dom标签上 -->
-              <el-dropdown-item @click.native="setting()" icon="el-icon-setting">个人设置</el-dropdown-item>
-              <el-dropdown-item @click.native="logout()" icon="el-icon-unlock">退出登录</el-dropdown-item>
+              <el-dropdown-item command="setting" icon="el-icon-setting">个人设置</el-dropdown-item>
+              <el-dropdown-item command="logout" icon="el-icon-unlock">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-header>
@@ -104,6 +104,12 @@ export default {
       auth.delUser();
       // 跳转到登录页面
       this.$router.push("/login");
+    },
+    handleClick(command) {
+      // 逻辑：if (command==='setting') 设置
+      // 逻辑：if (command==='logout') 登录
+      // command正好是要执行的函数名称
+      this[command]();
     }
   },
   created() {
