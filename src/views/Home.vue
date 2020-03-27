@@ -9,7 +9,7 @@
         :collapse="!isOpen"
         :collapse-transition="false"
         style="border-right:none"
-        default-active="/"
+        default-active="$router.path"
         class="el-menu-vertical-demo"
         background-color="#223344"
         text-color="#fff"
@@ -19,7 +19,7 @@
           <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
-        <el-menu-item index="article">
+        <el-menu-item index="/article">
           <i class="el-icon-document"></i>
           <span slot="title">内容管理</span>
         </el-menu-item>
