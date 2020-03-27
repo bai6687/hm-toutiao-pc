@@ -9,7 +9,7 @@
         :collapse="!isOpen"
         :collapse-transition="false"
         style="border-right:none"
-        default-active="$router.path"
+        :default-active="$route.path"
         class="el-menu-vertical-demo"
         background-color="#223344"
         text-color="#fff"
