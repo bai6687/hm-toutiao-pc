@@ -4,7 +4,17 @@
 
 <script>
 export default {
-  name: "my-article"
+  name: "my-article",
+  created() {
+    this.$http
+      .get("articles")
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(() => {
+        console.log("请求失败");
+      });
+  }
 };
 </script>
 
