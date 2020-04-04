@@ -8,6 +8,11 @@ import Home from '../views/Home.vue'
 import Welcome from '../views/Welcome.vue'
 import NotFound from '../views/404.vue'
 import Article from '../views/Article.vue'
+import Image from '../views/Image.vue'
+import Publish from '../views/Publish.vue'
+import Comment from '../views/Comment.vue'
+import Fans from '../views/Fans.vue'
+import Setting from '../views/Setting.vue'
 
 // 导入auth模块
 import auth from '@/utils/auth.js'
@@ -23,7 +28,12 @@ const routes = [
         component: Home,
         children: [
             { path: '/', component: Welcome },
-            { path: '/article', component: Article }
+            { path: '/article', component: Article },
+            { path: '/image', component: Image },
+            { path: '/publish', component: Publish },
+            { path: '/comment', component: Comment },
+            { path: '/fans', component: Fans },
+            { path: '/setting', component: Setting }
         ]
     },
     // 通配规则，匹配以上规则没处理的路径

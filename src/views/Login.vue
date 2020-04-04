@@ -68,21 +68,32 @@ export default {
       // 组件方法validate(valid)用来整体校验表单
       // valid代表整体表单是否校验成功
       // 通过组件实例this.$refs.loginForm调用组件方法
-      this.$refs.loginForm.validate(valid => {
+
+      // 在await外层包裹async
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           // 万能短信验证码：246810 测试账号：13911111111
           // console.log("登录");
-          this.$http
-            .post("authorizations", this.loginForm)
-            .then(res => {
-              // 登录成功
-              // 存储用户信息 res === {data:{message:'',data:''}}
-              auth.setUser(res.data.data);
-              this.$router.push("/");
-            })
-            .catch(() => {
-              this.$message.error("手机号或验证码错误");
-            });
+          // this.$http
+          //   .post("authorizations", this.loginForm)
+          //   .then(res => {
+          //     // 登录成功
+          //     // 存储用户信息 res === {data:{message:'',data:''}}
+          //     auth.setUser(res.data.data);
+          //     this.$router.push("/");
+          //   })
+          //   .catch(() => {
+          //     this.$message.error("手机号或验证码错误");
+          //   });
+
+          // async 和 await 修改登录请求
+          try {
+            const res = await this.$http.post("authorizations", this.loginForm);
+            auth.setUser(res.data.data);
+            this.$router.push("/");
+          } catch (e) {
+            this.$message.error("手机号或验证码错误");
+          }
         }
       });
     }

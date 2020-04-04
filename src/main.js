@@ -13,6 +13,20 @@ import router from './router/index.js'
 // 使用相对路径要根据目录结构进行书写，目录结构改变，
 // @代表src的绝对路径（vue-cli下才可使用）
 import axios from '@/api'
+
+// 全局注册组件
+// import MyBread from '@/components/my-bread'
+// Vue.componnet(MyBread.name, MyBread)
+
+// 导入公用样式
+import '@/styles/index.less'
+
+// 使用自己封装的组件
+import plugin from '@/utils/plugin'
+Vue.use(plugin)
+
+
+
 // 挂载axios
 Vue.prototype.$http = axios
 

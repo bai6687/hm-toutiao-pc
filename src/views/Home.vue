@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import eventBus from "@/utils/eventBus";
 import auth from "@/utils/auth";
 export default {
   name: "my-home",
@@ -90,6 +91,21 @@ export default {
       userName: "",
       userPhoto: ""
     };
+  },
+  created() {
+    const user = auth.getUser();
+    this.userName = user.name;
+    this.userPhoto = user.photo;
+    // 接收Setting组件传的用户名的值
+    eventBus.$on("updateUserName", data => {
+      this.userName = data;
+    });
+    // 接收Setting组件传的头像
+    eventBus.$on("updateUserPhoto", data => {
+      this.userPhoto = data;
+    });
+
+    // 接收
   },
   methods: {
     toggleAside() {
@@ -112,11 +128,6 @@ export default {
       // command正好是要执行的函数名称
       this[command]();
     }
-  },
-  created() {
-    const user = auth.getUser();
-    this.userName = user.name;
-    this.userPhoto = user.photo;
   }
 };
 </script>
